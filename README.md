@@ -2,10 +2,7 @@
 Collection and analysis of tweets by congressional district
 #### What can tweets tell us about the partisan make-up of the congressional districts where they are from? 
 #### Could they potentially provide insight into future election outcomes that polls may be unable to?
-  *Main challenges: 
-*collecting tweets and filtering into congressional districts.
-*Feature engineering to create preditive model.
-*Creating visualizations to better understand and compare each district.
+  
 
 # Collecting Data
 ## Twitter Streaming API w/ Tweepy
