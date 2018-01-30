@@ -1,5 +1,5 @@
 # district_tweets
-Collection and analysis of tweets by congressional district
+
 #### What can tweets tell us about the partisan make-up of the congressional districts where they are from? 
 
 #### Could they potentially be used alongside poll data to better predict election outcomes?
