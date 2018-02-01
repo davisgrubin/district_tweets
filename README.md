@@ -3,7 +3,9 @@
 #### What can tweets tell us about the partisan make-up of the congressional districts where they are from? 
 
 #### Could they potentially be used alongside poll data to better predict election outcomes?
-  
+## How to use this repo
+Just clone the repo and run GeoStream.py in a terminal. It will create a stream_tweets folder with each district's tweets & metadata saved in the format <State FIPS #>-<District #>.txt. You can then look at the Partisanship Prediction notebook to see how to read in just the tweets, districts, and parties using the functions there. 
+
 
 # Collecting Data
 ## Twitter Streaming API w/ Tweepy
