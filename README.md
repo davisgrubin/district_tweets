@@ -4,7 +4,7 @@
 
 #### Could they potentially be used alongside poll data to better predict election outcomes?
 ## How to use this repo
-Just clone the repo and run GeoStream.py in a terminal. It will create a stream_tweets folder with each district's tweets & metadata saved in the format <State FIPS #>-<District #>.txt. You can then look at the Partisanship Prediction notebook to see how to read in just the tweets, districts, and parties using the functions there. 
+Just clone the repo and run GeoStream.py in a terminal. It will create a stream_tweets folder with each district's tweets & metadata saved in the format <State FIPS #>-<District #>.txt. Once you have collected enough tweets (du -sbh stream_tweets in the bash until its around 8gb to get around how many I had). You can then look at the Partisanship Prediction notebook to see how to read in just the tweets, districts, and parties into a dataframe for reproducing predictions using scikit learn. 
 
 
 # Collecting Data
