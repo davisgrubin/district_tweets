@@ -75,6 +75,10 @@ class CustomStreamListener(tweepy.StreamListener):
         print(sys.stderr, 'Timeout...')
         return True # Don't kill the stream
 
+    def on_exception(self, exception):
+               print(exception)
+               return
+
 if __name__ == '__main__':
     #Establishing Kinesis Stream
     # client = boto3.client('firehose',region_name ='us-east-2',aws_access_key_id=aws_key_id,
