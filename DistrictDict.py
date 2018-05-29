@@ -26,6 +26,7 @@ def place_by_dist(cd_file,cdp_file,incp_file):
     df_cd['PLACEFP'] = [str(i).lstrip('0') for i in df_cd['PLACEFP']]
     df_cd['PLACEFP'] = df_cd['PLACEFP'].astype(int)
     df_place_names = pd.concat([df_cdp,df_incp])
+    df_place_names['PLACEFP'] = df_place_names['PLACEFP'].astype(int)
     master_df = pd.merge(df_place_names,df_cd,how='inner',on='PLACEFP')
     master_df['State_Abrv'] = [state_codes[str(i)] for i in master_df['STATEFP']]
     master_df['NAME']= master_df['NAME'] +', '+ master_df['State_Abrv']
