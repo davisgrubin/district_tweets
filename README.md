@@ -1,4 +1,6 @@
 # district_tweets
+link to Dash interactive visualization of sentiment polarity time-series: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8050/
+code is in sentiment_timeseries.py
 
 #### What can tweets tell us about the partisan make-up of the congressional districts where they are from? 
 
@@ -22,7 +24,8 @@ For the model evaluation I split the districts and their associated tweets into 
 # Goals
 I'm currently working on how to apply more dense, semantically rich features such as GloVe and word2vec along with neural nets to this "district as document" classification schema. In the future I'd like to change my dependent variable to COOK PVI, a measure of congressional partisanship in each district that is calculated by comparing district-level presidential election results to those of the national presidential election. From there the statistically complex task of trying to augment polling data with this information would begin. I'm also curious to see how far I can get with just using vector representations and ML algorithms without trying any extensive feature engineering.  
 
-I'd also like to use Bokeh or Folium to create an interactive visualization that allows users to look at topics, communities, sentiment analysis of topics, most shared links, similar/dissimilar districts (based on cosine similarities/Cook PVI), predicted vs real Cook PVI once I've at accomplished the above mentioned prediction improvements. 
+If you missed it at the top, I've created a simple interactive visualization using Dash that allows users to search terms and get a time-series of sentiment polarity of tweets containing those terms. The code is in sentiment_timeseries.py and the application is here: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8050/
+Keep in mind this uses the free Twitter API and therefore doesn't have very large numbers of tweets for certain terms!
 
 
 
