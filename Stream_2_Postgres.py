@@ -8,6 +8,7 @@ import json
 import psycopg2
 import numpy as np
 import itertools
+from time import sleep
 
 
 dist_dict = dd.get_files()
@@ -24,7 +25,6 @@ TWITTER_KEY= os.environ['TW_ACCESS_TOKEN']
 TWITTER_SECRET = os.environ['TW_ACCESS_SECRET']
 auth = tweepy.OAuthHandler(TWITTER_APP_KEY, TWITTER_APP_SECRET)
 auth.set_access_token(TWITTER_KEY, TWITTER_SECRET)
-api = tweepy.API(auth)
 aws_key = os.environ['AWS_SECRET_ACCESS_KEY']
 aws_key_id = os.environ['AWS_ACCESS_KEY']
 
@@ -83,5 +83,12 @@ if __name__ == '__main__':
     #Establishing Kinesis Stream
     # client = boto3.client('firehose',region_name ='us-east-2',aws_access_key_id=aws_key_id,
     # aws_secret_access_key=aws_key)
-    sapi = tweepy.streaming.Stream(auth, CustomStreamListener())
-    sapi.filter(locations=[-125,24,-66,50])
+    while True:
+        api = tweepy.API(auth)
+        try:
+            sapi = tweepy.streaming.Stream(auth, CustomStreamListener())
+            sapi.filter(locations=[-125,24,-66,50])
+        except IOError:
+            sleep(60)
+    
+    
