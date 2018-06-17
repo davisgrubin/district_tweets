@@ -2,10 +2,11 @@
 link to Dash interactive visualization of sentiment polarity time-series: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8050/
 code is in sentiment_timeseries.py
 
-#### What can tweets tell us about the partisan make-up of the congressional districts where they are from? 
+#### Can tweets be used to predict the partisanship of congressional districts?  
 
-#### Could they potentially be used alongside poll data to better predict election outcomes?
 ## How to use this repo
+*I've updated the method I used for my capstone with a new Tweepy Stream Listener that puts the tweets directly into a Postgresql database(Stream_2_Postgres.py), along with other improvements. I'm keeping the description of the original method below and the original file (GeoStream.py) just to showcase how I used it for my capstone. 
+
 Just clone the repo and run GeoStream.py in a terminal. It will create a stream_tweets folder with each district's tweets & metadata saved in the format <State FIPS #>-<District #>.txt. Once you have collected enough tweets (du -sbh stream_tweets in the bash until its around 9gb to get around how many I had). You can then look at the Partisanship Prediction notebook to see how to read in just the tweets, districts, and parties into a dataframe for reproducing predictions using scikit learn. 
 
 
@@ -19,10 +20,10 @@ First I loaded the tweets into a dataframe and did some twitter-specific tokeniz
 By treating each district's tweets as a document, I created a TF-IDF matrix and a bag-of-words (as well as SVD for both of them) and used a Multinomial Naive Bayes and SVM  classifier trained using Stochastic Gradient Descent on each for a baseline. The labels were whether that district was represented by a Democrat(0) or a Republican(1).
 
 # Results
-For the model evaluation I split the districts and their associated tweets into a training set of 307. Surprisingly the most simple approach, a bag of words with Naive Bayes had a 3 fold cross validated score of 70 % while the Tfidf reduced to 50d using SVD with a SVM as classifier performed at 74% accuracy. I've also incorporated sentiment analysis using VADER analysis on tweets from each district containing the terms "Trump", "clinton", "republican" and "democrat", though these features do not appear to be making much of a difference as of right now. 
+For the model evaluation I split the districts and their associated tweets into a training set of 307. Surprisingly the most simple approach, a bag of words with Naive Bayes had a 3 fold cross validated score of 70 % while the Tfidf reduced to 50d using SVD with a SVM as classifier performed at 74% accuracy.  
 
 # Goals
-I'm currently working on how to apply more dense, semantically rich features such as GloVe and word2vec along with neural nets to this "district as document" classification schema. In the future I'd like to change my dependent variable to COOK PVI, a measure of congressional partisanship in each district that is calculated by comparing district-level presidential election results to those of the national presidential election. From there the statistically complex task of trying to augment polling data with this information would begin. I'm also curious to see how far I can get with just using vector representations and ML algorithms without trying any extensive feature engineering.  
+I'm currently working on how to apply more dense, semantically rich features such as GloVe and word2vec along with neural nets to this "district as document" classification schema. In the future I'd like to change my dependent variable to COOK PVI, a measure of congressional partisanship in each district that is calculated by comparing district-level presidential election results to those of the national presidential election. I'm curious to see how far I can get with just using vector representations without trying any extensive feature engineering. I may also use tensorboard or t-SNE to create visualizations of republican and democratic word vectors side by side for comparison. 
 
 If you missed it at the top, I've created a simple interactive visualization using Dash that allows users to search terms and get a time-series of sentiment polarity of tweets containing those terms. The code is in sentiment_timeseries.py and the application is here: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8050/
 Keep in mind this uses the free Twitter API and therefore doesn't have very large numbers of tweets for certain terms!
