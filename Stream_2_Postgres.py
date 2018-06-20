@@ -76,19 +76,22 @@ class CustomStreamListener(tweepy.StreamListener):
         return True # Don't kill the stream
 
     def on_exception(self, exception):
-               print(exception)
-               return
+        print(exception)
+        return True
 
 if __name__ == '__main__':
     #Establishing Kinesis Stream
     # client = boto3.client('firehose',region_name ='us-east-2',aws_access_key_id=aws_key_id,
     # aws_secret_access_key=aws_key)
+    backoff = 1
     while True:
         api = tweepy.API(auth)
         try:
             sapi = tweepy.streaming.Stream(auth, CustomStreamListener())
             sapi.filter(locations=[-125,24,-66,50])
-        except IOError:
-            sleep(60)
-    
-    
+        except:
+            e = sys.exc_info()[0]
+            print('I just caught the exception: %s' % e)
+            backoff += 1
+            sleep(60 * backoff)
+            continue
