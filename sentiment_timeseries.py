@@ -34,7 +34,6 @@ app.css.append_css({
 })
 
 app.layout =html.Div([
-html.Div(
  html.Div([
     html.Label(children='Search Term Sentiment'),
     dcc.Input(id='search-term',type='text', value=''),
@@ -53,11 +52,12 @@ html.Div(
     dcc.Checklist(
         id = 'all-parties',
         options = [
-            {'label':'All Democratic Districts', 'value': 'D'}
+            {'label':'All Democratic Districts', 'value': 'D'},
             {'label':'All Republican Districts', 'value': 'R'}
         ],
         values = [],
         labelStyle={'display': 'inline-block'}
+    ),
     ]),
 html.Div([html.Label('Multi-Select Districts for Comparison'),
     dcc.Dropdown(
