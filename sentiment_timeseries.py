@@ -49,9 +49,16 @@ html.Div(
         {'label': 'Hourly Avg','value': 'H'},
         {'label': 'Daily Avg', 'value': 'D'},],
         value='H',
-        labelStyle={'display': 'inline-block'})],
-    className = 'six columns'),className='row'),
-
+        labelStyle={'display': 'inline-block'}),
+    dcc.Checklist(
+        id = 'all-parties',
+        options = [
+            {'label':'All Democratic Districts', 'value': 'D'}
+            {'label':'All Republican Districts', 'value': 'R'}
+        ],
+        values = [],
+        labelStyle={'display': 'inline-block'}
+    ]),
 html.Div([html.Label('Multi-Select Districts for Comparison'),
     dcc.Dropdown(
         id = 'district-selection',
