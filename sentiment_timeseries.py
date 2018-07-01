@@ -6,7 +6,7 @@ import psycopg2
 import pandas as pd
 import json
 import datetime as dt
-
+from tweets_to_df import get_parties
 
 
 app = dash.Dash(__name__)
@@ -79,18 +79,57 @@ def state_from_num(i):
 def get_unique_dists(dists):
     return [{'label': i , 'value': i} for i in dists]
 
-def create_data(dists,df,freq):
+def get_parties():
+    df = pd.read_csv('legislators-current.csv')
+    df = df[df['type'] != 'sen']
+    df = df[df['state'] != 'GU']
+    df = df[df['state'] != 'MP']
+    df = df[df['state'] != 'PR']
+    df = df[df['state'] != 'AS']
+    df = df[df['state'] != 'VI']
+    df['district'] = [str(int(i)) for i in df['district']]
+    df['district'] = ['0'+i if len(i) < 2 else i for i in df['district']]
+    df['state_dist'] = df['state'] + '-' + df['district']
+    dem_dists = df.loc[df['party'] == 'Democrat']
+    rep_dists = df.loc[df['party'] == 'Republican']
+    dem_dists = set(dem_dists['state_dist'])
+    rep_dists = set(rep_dists['state_dist'])
+    return dem_dists,rep_dists
+
+def downsample(filter_df,freq,name):
+    downsamp = filter_df.polarity.resample(freq).mean()
+    n_tweets = filter_df.polarity.resample(freq).count()
+    n_tweets = ['n_tweets: ' + str(i) for i in n_tweets.values]
+    return {'x':downsamp.index,'y':downsamp.values,'name':name,'text':n_tweets}
+
+
+def filter_by_dists(dists,df,freq):
     data = []
     for i in dists:
         filter_df = df[df.district.str.match(i)==True]
-        downsamp = filter_df.polarity.resample(freq).mean()
-        n_tweets = filter_df.polarity.resample(freq).count()
-        n_tweets = ['n_tweets: ' + str(i) for i in n_tweets.values]
-        data.append({'x':downsamp.index,'y':downsamp.values,'name':str(i),
-        'text':n_tweets})
+        data.append(downsamp(filter_df,freq,i))
     return data
 
 
+
+def filter_by_party(parties,df,freq):
+    dem_dists, rep_dists = get_parties()
+    data = []
+    for i in parties:
+        if i == 'D':
+            filter_df = df[df['district'].isin(dem_dists)]
+            name = 'All ' + i + ' avg'
+            dems = downsample(filter_df,freq,name)
+            dems['line'] = {'color':'rgb(22, 96, 167)'}
+            data.append(dems)
+        else:
+            filter_df = df[df['district'].isin(rep_dists)]
+            name = 'All ' + i + ' avg'
+            reps = downsample(filter_df,freq,name)
+            reps['line'] = {'color':'rgb(205, 12, 24)'}
+            data.append(reps)
+
+    return data
 
 
 #Search and store resulting df in client Browser
@@ -126,9 +165,10 @@ def search_data(n_clicks,input1,min_date,max_date):
     Output('time-series', 'children'),
     [Input('intermediate-value','children'),
     Input('district-selection','value'),
-    Input('hourly-or-daily','value')]
+    Input('hourly-or-daily','value'),
+    Input('all-parties','values')]
     )
-def update_time_series(jsonified_cleaned_data,input1,freq):
+def update_time_series(jsonified_cleaned_data,dist,freq,parties):
     # return("You've clicked {0} times and entered {1}".format(n_clicks,input1))
     df = pd.read_json(jsonified_cleaned_data, orient='split')
     # df.date_time = df.date_time.values.astype('datetime64[h]')
@@ -138,10 +178,11 @@ def update_time_series(jsonified_cleaned_data,input1,freq):
     n_tweets = ['n_tweets: ' + str(i) for i in n_tweets.values]
     data = []
     data.append({'x':downsamp.index,'y':downsamp.values,'name':"Nat'l Avg",
-    'text':n_tweets})
-    data1 = create_data(input1,df,freq)
-    data2  = data + data1
-    return dcc.Graph(id='output-graph',figure = {'data':data2})
+    'text':n_tweets,'line':{'color':'rgb(115,54,97)'}})
+    data_districts = filter_by_dists(dist,df,freq)
+    data_parties = filter_by_party(parties,df,freq)
+    all_data  = data + data_districts + data_parties
+    return dcc.Graph(id='output-graph',figure = {'data':all_data})
 
 
 
