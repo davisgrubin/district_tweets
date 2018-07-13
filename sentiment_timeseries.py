@@ -6,7 +6,6 @@ import psycopg2
 import pandas as pd
 import json
 import datetime as dt
-from tweets_to_df import get_parties
 
 
 app = dash.Dash(__name__)
@@ -71,15 +70,26 @@ html.Div(id='intermediate-value', style={'display': 'none'})])
 
 
 #Helper/Cleaning Functions
-def state_from_num(i):
+def state_from_num(i,dictionary=None):
     a = i.split('-')
-    a[0] = state_codes[a[0]]
+    a[0] = dictionary[a[0]]
     return '-'.join(a)
+
+def num_state_format():
+    dem_dists, rep_dists = get_parties()
+    codes = {v:k for k,v in state_codes.items()}
+    dem_dists = {state_from_num(i,codes) for i in dem_dists}
+    rep_dists = {state_from_num(i,codes) for i in rep_dists}
+    return dem_dists, rep_dists
+
+
+
 
 def get_unique_dists(dists):
     return [{'label': i , 'value': i} for i in dists]
 
-def get_parties():
+
+def get_parties(stream=False):
     df = pd.read_csv('legislators-current.csv')
     df = df[df['type'] != 'sen']
     df = df[df['state'] != 'GU']
@@ -94,7 +104,7 @@ def get_parties():
     rep_dists = df.loc[df['party'] == 'Republican']
     dem_dists = set(dem_dists['state_dist'])
     rep_dists = set(rep_dists['state_dist'])
-    return dem_dists,rep_dists
+    return dem_dists, rep_dists
 
 def downsample(filter_df,freq,name):
     downsamp = filter_df.polarity.resample(freq).mean()
@@ -155,7 +165,7 @@ def search_data(n_clicks,input1,min_date,max_date):
 
     # df_search = df[df.content.str.contains('{}'.format(str(input1)),case=False,
     #  regex=False) == True]
-    df.district = df.district.apply(state_from_num)
+    df.district = df.district.apply(state_from_num,dictionary=state_codes)
     # more generally, this line would be
     # json.dumps(cleaned_df)
     return df.to_json(date_format='iso', orient='split')
@@ -201,4 +211,4 @@ def update_dists(jsonified_cleaned_data):
 
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0',debug=True)
+    app.run_server(host='0.0.0.0')

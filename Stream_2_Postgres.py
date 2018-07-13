@@ -9,13 +9,15 @@ import psycopg2
 import numpy as np
 import itertools
 from time import sleep
+from sentiment_timeseries import dict_for_stream
+
+
 
 
 dist_dict = dd.get_files()
 dist_lookup = []
 for k, v in dist_dict.items():
     dist_lookup.append((v,k))
-
 
 
 
@@ -51,6 +53,8 @@ class CustomStreamListener(tweepy.StreamListener):
                 location = status.user.location
                 screen_name = status.user.screen_name
                 date_time = status.created_at
+
+
                 #For constantly updating to Kinesis Stream
                 # data = {'text':str(status.text),'district':str(i[1]),
                 # 'location':str(status.user.location),
@@ -62,7 +66,7 @@ class CustomStreamListener(tweepy.StreamListener):
                 cur.execute('''INSERT INTO tweetstest(content,location,
                 polarity,subjectivity,screen_name,district,date_time) VALUES(%s,%s,%s,
                 %s,%s,%s,%s)''',(content,location,polarity,subjectivity,screen_name,
-                district,date_time))
+                district,date_time,party))
                 conn.commit()
 
 
