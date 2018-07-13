@@ -9,7 +9,7 @@ import psycopg2
 import numpy as np
 import itertools
 from time import sleep
-from sentiment_timeseries import dict_for_stream
+from sentiment_timeseries import num_state_format
 
 
 
@@ -66,7 +66,7 @@ class CustomStreamListener(tweepy.StreamListener):
                 cur.execute('''INSERT INTO tweetstest(content,location,
                 polarity,subjectivity,screen_name,district,date_time) VALUES(%s,%s,%s,
                 %s,%s,%s,%s)''',(content,location,polarity,subjectivity,screen_name,
-                district,date_time,party))
+                district,date_time))
                 conn.commit()
 
 
