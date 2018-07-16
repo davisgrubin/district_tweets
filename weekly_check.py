@@ -33,9 +33,11 @@ if os.path.exists('num_of_tweets.txt'):
         f.write(str(num_dem_tweets))
         f.write('\n')
         f.write(str(num_rep_tweets))
+        f.close()
 
 else:
     with open("num_of_tweets.txt",'w') as f:
         f.write(str(num_dem_tweets))
         f.write('\n')
         f.write(str(num_rep_tweets))
+        f.close()
