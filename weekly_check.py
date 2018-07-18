@@ -2,12 +2,10 @@ import psycopg2
 import os
 import preprocess_twitter as pre
 import numpy
+from datetime import datetime
 
 conn = psycopg2.connect('dbname=davis user=davis host=/var/run/postgresql')
 cur = conn.cursor()
-
-
-
 
 cur.execute('''UPDATE tweetstest SET party = (SELECT dist_parties.party
 FROM dist_parties WHERE dist_parties.district = tweetstest.district)''')
@@ -40,4 +38,23 @@ else:
         f.write(str(num_dem_tweets))
         f.write('\n')
         f.write(str(num_rep_tweets))
+        f.close()
+
+
+if num_rep_tweets - old_num_rep_tweets > 10000000:
+    date = datetime.now().strftime('%Y_%m_%d')
+    cur2  = conn.cursor('repcur')
+    cur2.execute('''SELECT content FROM tweetstest WHERE party = False''')
+    with open('rep_tweets_{}'.format(date),'w') as f:
+        for record in cur2:
+            f.write(pre.tokenize(record[0]) + '\n')
+        f.close()
+
+if num_dem_tweets - old_num_dem_tweets > 10000000:
+    date = datetime.now().strftime('%Y_%m_%d')
+    cur3 = conn.cursor('demcur')
+    cur3.execute('''SELECT content FROM tweetstest WHERE party = True''')
+    with open('dem_tweets_{}'.format(date),'w') as f:
+        for record in cur3:
+            f.write(pre.tokenize(record[0] + '\n'))
         f.close()

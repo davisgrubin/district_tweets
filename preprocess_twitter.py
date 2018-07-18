@@ -26,6 +26,11 @@ def allcaps(text):
     text = text.group()
     return text.lower() + " <allcaps>"
 
+def user(text):
+    text = text.group()
+    user_name = text[1:]
+    result = " ".join(["<user>"] + re.split(r"(?=[A-Z])", user_name,flags=FLAGS))
+    return result
 
 def tokenize(text):
     # Different regex parts for smiley faces
@@ -38,7 +43,7 @@ def tokenize(text):
 
     text = re_sub(r"https?:\/\/\S+\b|www\.(\w+\.)+\S*", "<url>")
     text = re_sub(r"/"," / ")
-    text = re_sub(r"@\w+", "<user>")
+    text = re_sub(r"@\w+", user)
     text = re_sub(r"{}{}[)dD]+|[)dD]+{}{}".format(eyes, nose, nose, eyes), "<smile>")
     text = re_sub(r"{}{}p+".format(eyes, nose), "<lolface>")
     text = re_sub(r"{}{}\(+|\)+{}{}".format(eyes, nose, nose, eyes), "<sadface>")
