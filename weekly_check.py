@@ -41,20 +41,20 @@ else:
         f.close()
 
 
-if num_rep_tweets - old_num_rep_tweets > 10000000:
-    date = datetime.now().strftime('%Y_%m_%d')
-    cur2  = conn.cursor('repcur')
-    cur2.execute('''SELECT content FROM tweetstest WHERE party = False''')
-    with open('rep_tweets_{}'.format(date),'w') as f:
-        for record in cur2:
-            f.write(pre.tokenize(record[0]) + '\n')
-        f.close()
+# if num_rep_tweets - old_num_rep_tweets > 10000000:
+date = datetime.now().strftime('%Y_%m_%d')
+cur2  = conn.cursor('repcur')
+cur2.execute('''SELECT content FROM tweetstest WHERE party = False''')
+with open('rep_tweets_{}.txt'.format(date),'w') as f:
+    for record in cur2:
+        f.write(pre.tokenize(record[0]) + '\n')
+    f.close()
 
-if num_dem_tweets - old_num_dem_tweets > 10000000:
-    date = datetime.now().strftime('%Y_%m_%d')
-    cur3 = conn.cursor('demcur')
-    cur3.execute('''SELECT content FROM tweetstest WHERE party = True''')
-    with open('dem_tweets_{}'.format(date),'w') as f:
-        for record in cur3:
-            f.write(pre.tokenize(record[0] + '\n'))
-        f.close()
+# if num_dem_tweets - int(old_num_dem_tweets) > 10000000:
+#     date = datetime.now().strftime('%Y_%m_%d')
+#     cur3 = conn.cursor('demcur')
+#     cur3.execute('''SELECT content FROM tweetstest WHERE party = True''')
+#     with open('dem_tweets_{}.txt'.format(date),'w') as f:
+#         for record in cur3:
+#             f.write(pre.tokenize(record[0] + '\n'))
+#         f.close()

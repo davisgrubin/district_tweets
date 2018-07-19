@@ -10,7 +10,7 @@ http://nlp.stanford.edu/projects/glove/preprocess-twitter.rb
 
 import sys
 import regex as re
-
+from string import punctuation
 FLAGS = re.MULTILINE | re.DOTALL
 
 def hashtag(text):
@@ -29,7 +29,7 @@ def allcaps(text):
 def user(text):
     text = text.group()
     user_name = text[1:]
-    result = " ".join(["<user>"] + re.split(r"(?=[A-Z])", user_name,flags=FLAGS))
+    result = "".join(["<user>"] + re.split(r"(?=[A-Z])", user_name,flags=FLAGS))
     return result
 
 def tokenize(text):
@@ -57,5 +57,5 @@ def tokenize(text):
     ## -- I just don't understand why the Ruby script adds <allcaps> to everything so I limited the selection.
     # text = re_sub(r"([^a-z0-9()<>'`\-]){2,}", allcaps)
     text = re_sub(r"([A-Z]){2,}", allcaps)
-
+    text = text.translate(str.maketrans('','',punctuation))
     return text.lower()
