@@ -31,7 +31,7 @@ aws_key = os.environ['AWS_SECRET_ACCESS_KEY']
 aws_key_id = os.environ['AWS_ACCESS_KEY']
 
 
-conn = psycopg2.connect('dbname=davis user=davis host=/var/run/postgresql')
+conn = psycopg2.connect('dbname=ubuntu user=ubuntu host=/var/run/postgresql')
 cur = conn.cursor()
 # cur.execute('''CREATE TABLE tweetstest(
 #     id SERIAL, content varchar, location varchar,
