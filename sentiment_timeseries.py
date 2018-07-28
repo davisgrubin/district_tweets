@@ -11,7 +11,7 @@ import datetime as dt
 app = dash.Dash(__name__)
 
 #get global data
-conn = psycopg2.connect('dbname=davis user=davis host=/var/run/postgresql')
+conn = psycopg2.connect('dbname=ubuntu user=ubuntu host=/var/run/postgresql')
 
 
 state_codes = {'53': 'WA', '10': 'DE', '11': 'DC', '55': 'WI', '54': 'WV',
