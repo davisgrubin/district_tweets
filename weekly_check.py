@@ -4,7 +4,7 @@ import preprocess_twitter as pre
 import numpy
 from datetime import datetime
 
-conn = psycopg2.connect('dbname=davis user=davis host=/var/run/postgresql')
+conn = psycopg2.connect('dbname=ubuntu user=ubuntu host=/var/run/postgresql')
 cur = conn.cursor()
 
 cur.execute('''UPDATE tweetstest SET party = (SELECT dist_parties.party
@@ -51,10 +51,10 @@ with open('rep_tweets_{}.txt'.format(date),'w') as f:
     f.close()
 
 # if num_dem_tweets - int(old_num_dem_tweets) > 10000000:
-#     date = datetime.now().strftime('%Y_%m_%d')
-#     cur3 = conn.cursor('demcur')
-#     cur3.execute('''SELECT content FROM tweetstest WHERE party = True''')
-#     with open('dem_tweets_{}.txt'.format(date),'w') as f:
-#         for record in cur3:
-#             f.write(pre.tokenize(record[0] + '\n'))
-#         f.close()
+date = datetime.now().strftime('%Y_%m_%d')
+cur3 = conn.cursor('demcur')
+cur3.execute('''SELECT content FROM tweetstest WHERE party = True''')
+with open('dem_tweets_{}.txt'.format(date),'w') as f:
+   for record in cur3:
+       f.write(pre.tokenize(record[0] + '\n'))
+   f.close()
