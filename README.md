@@ -26,7 +26,7 @@ You can also project along an 'axis' using terms within the corpus - i.e. 'good 
 ![dem_goodtobad](https://user-images.githubusercontent.com/25091693/43413450-179f00d6-93fe-11e8-9aa0-d19b23fdd499.png)
 
 While you're here also check out:
-A Dash app that allows you to track the sentiment polarity (positive vs. negative) of all tweets that contain your search term over time. There also options to filter on congressional districts at the individual and party level. The corresponding code is in sentiment_timeseries.py. Click the plot_studio option to get fancy in the toolbar to get fancy.
+A Dash app that allows you to track the sentiment polarity (positive vs. negative) of all tweets that contain your search term over time. There also options to filter on congressional districts at the individual and party level. The corresponding code is in sentiment_timeseries.py. Click the plot_studio option in the toolbar to get fancy.
 #### Dash interactive visualization of sentiment polarity time-series: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8050/
 ![senitment_timeseries](https://user-images.githubusercontent.com/25091693/43411810-49cdc574-93f9-11e8-932d-038a958ba91d.png)
  
