@@ -1,8 +1,9 @@
-# district_tweets - Comparing and contrasting tweets from democratic and republican districts.
+# district_tweets - Comparing and contrasting tweets 
+# from democratic and republican districts.
 ![screenshot from 2018-07-30 13-08-26](https://user-images.githubusercontent.com/25091693/43412404-1b47f98e-93fb-11e8-84f2-9089c3373164.png)
 
 
-## Dash interactive visualization of sentiment polarity time-series: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8050/
+#### Dash interactive visualization of sentiment polarity time-series: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8050/
 ![senitment_timeseries](https://user-images.githubusercontent.com/25091693/43411810-49cdc574-93f9-11e8-932d-038a958ba91d.png)
 This Dash app allows you to track the sentiment polarity (positive vs. negative) of all tweets that contain your search term over time. There also options to filter on congressional districts at the individual and party level. The corresponding code is in sentiment_timeseries.py
 
