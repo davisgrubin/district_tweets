@@ -1,6 +1,27 @@
-# district_tweets
-link to Dash interactive visualization of sentiment polarity time-series: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8050/
-code is in sentiment_timeseries.py
+# district_tweets - Comparing and contrasting tweets from democratic and republican districts.
+![screenshot from 2018-07-30 13-08-26](https://user-images.githubusercontent.com/25091693/43412404-1b47f98e-93fb-11e8-84f2-9089c3373164.png)
+
+
+## Dash interactive visualization of sentiment polarity time-series: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8050/
+![senitment_timeseries](https://user-images.githubusercontent.com/25091693/43411810-49cdc574-93f9-11e8-932d-038a958ba91d.png)
+This Dash app allows you to track the sentiment polarity (positive vs. negative) of all tweets that contain your search term over time. There also options to filter on congressional districts at the individual and party level. The corresponding code is in sentiment_timeseries.py
+
+## Tensorboard visualization of tweets from all Democratic and Republican districts.
+These two tensorboard visualizations of word2vec models trained on democratic and republican tweets allow you to see diffrences in the discourse. Simply pick a topic, user, or term in the search bar and narrow it down to however many nearest neighbors you'd like. The closer words are to eachother, the more semantic context they share in their use. Here is an example of using the T-SNE option to compare clusters of the 100 nearest neighbors of the term 'politics' for both democratic and republican districts.
+#### Republican districts 'politics' clusters
+![screenshot from 2018-07-30 13-18-29](https://user-images.githubusercontent.com/25091693/43412407-1d244fdc-93fb-11e8-8c82-b6c166592de9.png)
+
+#### Democratic districts 'politics' clusters
+![screenshot from 2018-07-30 13-18-13](https://user-images.githubusercontent.com/25091693/43412408-1ea7b948-93fb-11e8-8279-841380609cdf.png)
+
+You can also project along an 'axis' using terms within the corpus - i.e. 'good to bad' or 'harm to care'. Feel free to get creative!
+#### Republican districts 'politics' nearest neighbors good to bad:
+![rep_goodtobad](https://user-images.githubusercontent.com/25091693/43413266-9bd87a22-93fd-11e8-8278-84f143f34dab.png)
+
+#### Democratic districts 'politics' nearest neighbors good to bad:
+![dem_goodtobad](https://user-images.githubusercontent.com/25091693/43413450-179f00d6-93fe-11e8-9aa0-d19b23fdd499.png)
+
+Below this is my original capstone project for the Galvanize Data Science Immersive, and how I came about collecting tweets filtered on congressional districts.  
 
 #### Can tweets be used to predict the partisanship of congressional districts?  
 
