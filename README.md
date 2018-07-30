@@ -1,4 +1,4 @@
-# district_tweets - Examining the Twitterverse of Democratic and Republican Congressional Districts
+# Examining the Twitterverse of Democratic and Republican Congressional Districts
 
 ![screenshot from 2018-07-30 13-08-26](https://user-images.githubusercontent.com/25091693/43412404-1b47f98e-93fb-11e8-84f2-9089c3373164.png)
 
