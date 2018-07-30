@@ -9,7 +9,7 @@ Link to democratic dists tensorboard: http://ec2-18-222-37-25.us-east-2.compute.
 Link to republican dists tensorboard: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8090/#projector&run=.
 
 
-Here is an example of using the T-SNE option to compare clusters of the 100 nearest neighbors of the term 'politics' for both democratic and republican districts.
+Here is an example of using the T-SNE option to compare clusters of the 100 nearest neighbors of the term 'politics' for both democratic and republican districts. Ctl+click on the photos to see them in fullscreen.
 #### Republican districts 'politics' clusters
 ![screenshot from 2018-07-30 13-18-29](https://user-images.githubusercontent.com/25091693/43412407-1d244fdc-93fb-11e8-8c82-b6c166592de9.png)
 
