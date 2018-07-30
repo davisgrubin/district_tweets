@@ -3,7 +3,7 @@
 ![screenshot from 2018-07-30 13-52-20](https://user-images.githubusercontent.com/25091693/43414188-110ba3b2-9400-11e8-849c-8bcdb5679ab9.png)
 Visualization of Word2Vec embeddings trained on 11,000,000 democratic and 9,000,000 republican tweets.
 ## Tensorboard visualization of tweets from all Democratic and Republican districts.
-These two tensorboard visualizations of word2vec models trained on democratic and republican tweets allow you to see diffrences and simliarities in twitter discourse. Simply pick a topic, user, or term in the search bar and narrow it down to however many nearest neighbors you'd like. The closer words are to eachother, the more semantic context they share in their use. 
+These two tensorboard visualizations of word2vec models trained on democratic and republican tweets allow you to see diffrences and simliarities in twitter discourse. Simply pick a topic, user, or term in the search bar and narrow it down to however many nearest neighbors you'd like. The closer words are to eachother, the more semantic context they share in their use.<br/>
 Link to democratic dists tensorboard: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8080/#projector&run=.<br/>
 Link to republican dists tensorboard: http://ec2-18-222-37-25.us-east-2.compute.amazonaws.com:8090/#projector&run=.
 
