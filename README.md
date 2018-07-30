@@ -32,7 +32,7 @@ A Dash app that allows you to track the sentiment polarity (positive vs. negativ
  
 
 
-Below is my original Galvanize Data Science Capstone and how I started collected tweets filtered by congressional district.
+Below is my original Galvanize Data Science Capstone and how I collected tweets filtered by congressional district.
 #### Can tweets be used to predict the partisanship of congressional districts?  
 
 ## How to use this repo
